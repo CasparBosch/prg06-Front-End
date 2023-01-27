@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from 'react';
+import {Link} from "react-router-dom";
 import "./style.css";
 
-export default function Bike(props) {
+export function Bike(props) {
     console.log(props)
 
     const deleteBike = () => {
@@ -31,8 +32,8 @@ export default function Bike(props) {
         <section className="Bikes">
             <h2>{props.bike.title}</h2>
             <p>Likes: {likes}</p>
-            <input onChange={inputHandler} type="text" value={name} />
             <button onClick={addLike}>Like</button>
+            <button><Link to = {"bikes/" + props.bike.id}>Read More</Link></button>
             <button onClick={deleteBike}>DELETE</button>
         </section>
         

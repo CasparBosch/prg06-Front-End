@@ -4,7 +4,7 @@ import "./style.css";
 
 const URI_COLLECTION = "http://145.24.222.193:8000"
 
-export default function NewBike(props) {
+export function NewBike(props) {
     console.log(props)
 
     const [bike, setBike] = useState({

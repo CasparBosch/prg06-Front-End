@@ -17,8 +17,7 @@ export function EditBike(props){
     const saveBike = (event) => {
         event.preventDefault()
 
-
-        fetch(URI_COLLECTION, {
+        fetch(URI_COLLECTION + "/" + params.id, {
             method: 'PUT',
             headers: {
                 'Accept':'application/json',
