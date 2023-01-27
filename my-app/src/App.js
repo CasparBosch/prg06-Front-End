@@ -40,14 +40,6 @@ export default function App() {
         <Route path="create" element={<NewBike bikelistRefreshHandler={loadJson}/>}/>
         <Route path = "bikes/:id" element = {<BikeDetail />}/>
       </Route>
-      
-      {/* {showBikes}
-      <NewBike bikelistRefreshHandler={loadJson}/>
-      <button onClick={() => {
-        // alert("Zeker weten?")
-
-        setBikes([...bikes, "Crotch Rocket"])
-    }}>Add Bike</button> */}
     </Routes>
     </BrowserRouter>
   );
