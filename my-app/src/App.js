@@ -1,26 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import {React, useEffect} from 'react';
+import {useState} from 'react';
+import {Bike} from './Bikes';
+import {NewBike} from './NewBike';
+import {BrowserRouter, Route} from "react-router-dom"
+import {Routes} from "react-router-dom"
+import {BikeDetail} from "./BikeDetail"
+import { EditBike } from './EditBike';
 
-// button component
-function MyButton() {
+import Layout from './Layout';
+import './style.css';
+
+const URI_COLLECTION = "http://145.24.222.193:8000"
+
+export default function App() {
+
+  const [bikes, setBikes] = useState([])
+
+  const loadJson = () => {
+  fetch(URI_COLLECTION, {
+    method: 'GET', 
+    headers: {
+      'Accept': 'application/json'
+    }})
+    .then((response) => response.json())
+    .then((result) => setBikes(result.items))
+  }
+
+  const showBikes = bikes.map((value, key) => (
+    <Bike key={value.id} bike={value} bikelistRefreshHandler={loadJson}/>
+  ))
+
+  useEffect(loadJson, [])
+
   return (
-    <button>I'm a button</button>
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Layout bikelistRefreshHandler={loadJson}/>}>
+        <Route index element={showBikes}/>
+        <Route path="create" element={<NewBike bikelistRefreshHandler={loadJson}/>}/>
+        <Route path = "bikes/:id" element = {<BikeDetail />}/>
+      </Route>
+      
+      {/* {showBikes}
+      <NewBike bikelistRefreshHandler={loadJson}/>
+      <button onClick={() => {
+        // alert("Zeker weten?")
+
+        setBikes([...bikes, "Crotch Rocket"])
+    }}>Add Bike</button> */}
+    </Routes>
+    </BrowserRouter>
   );
 }
 
-// app start
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-      <div>
-      <h1>Welcome to my app</h1>
-      <MyButton />
-    </div>
-      </header>
-    </div>
-  );
-}
-
-// app export
-export default App;
